@@ -7,9 +7,11 @@ const cmd = parse(Deno.args)._[0];
 
 switch (cmd) {
   // List blobs
-  case 'list':
-    listBlobs();
+  case 'list': {
+    const macAddress = parse(Deno.args).M;
+    await listBlobs(macAddress);
     break;
+  }
   // Get a blob
   case 'get': {
     const opt = parse(Deno.args);
@@ -28,7 +30,7 @@ switch (cmd) {
       date: opt.d,
       hour: opt.h,
     };
-    getBlob(blob);
+    await getBlob(blob);
     break;
   }
   // Invalid command
