@@ -1,0 +1,23 @@
+{
+  "lint": {
+    "files": {
+      "include": ["src/"]
+    },
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["src/"]
+    },
+    "options": {
+      "useTabs": false,
+      "indentWidth": 2,
+      "singleQuote": true
+    }
+  },
+  "tasks": {
+    "mfk": "deno run --allow-net --allow-read src/mfk.js"
+  }
+}
