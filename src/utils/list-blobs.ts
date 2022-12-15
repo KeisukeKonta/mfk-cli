@@ -9,6 +9,8 @@ export default async function listBlobs() {
   const response = await fetch(`${URI}${TOKEN.replace('?', '&')}`);
   const text = await response.text();
   const xml = parse(text);
-  const blobs = xml.EnumerationResults.Blobs.Blob.map((blob) => blob.Name);
+  const blobs = xml.EnumerationResults.Blobs.Blob
+    .filter((blob) => blob.Properties['Content-Length'] > 0)
+    .map((blob) => blob.Name);
   console.log(blobs);
 }
