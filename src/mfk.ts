@@ -10,6 +10,11 @@ switch (cmd) {
   // List blobs
   case 'list': {
     const macAddress = parse(Deno.args).M;
+    if (!macAddress) {
+      throw `No MAC address specified: -M ${macAddress}`;
+    } else if (typeof macAddress !== 'string') {
+      throw `Invalid option: -M ${macAddress}\nIt has to be a string.`;
+    }
     await listBlobs(macAddress);
     break;
   }
