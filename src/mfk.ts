@@ -3,6 +3,7 @@ import MFKBlob from './interfaces/mfk-blob.ts';
 import convertToJason from './utils/convert-to-json.ts';
 import getBlob from './utils/get-blob.ts';
 import listBlobs from './utils/list-blobs.ts';
+import serveMfk from './utils/serve-mfk.ts';
 
 const cmd = parse(Deno.args)._[0];
 
@@ -39,6 +40,7 @@ switch (cmd) {
     await getBlob(blob);
     break;
   }
+  // Convert to a JSON
   case 'c2j': {
     const file = parse(Deno.args)._[1];
     if (!file) {
@@ -47,6 +49,18 @@ switch (cmd) {
       throw `Invalid option: c2j ${file}\nIt has to be a string.`;
     }
     await convertToJason(file);
+    break;
+  }
+  // Serve MFK data
+  case 'serve': {
+    const file = parse(Deno.args)._[1];
+    const port = parse(Deno.args).p;
+    if (!file) {
+      throw `No file specified: serve ${file}`;
+    } else if (typeof file !== 'string') {
+      throw `Invalid option: serve ${file}\nIt has to be a string.`;
+    }
+    await serveMfk(file, port);
     break;
   }
   // Invalid command
