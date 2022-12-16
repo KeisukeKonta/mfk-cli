@@ -1,3 +1,4 @@
+import { basename, join } from 'https://deno.land/std/path/mod.ts';
 import MFKBlob from '../interfaces/mfk-blob.ts';
 import getBlobUri from './get-blob-uri.ts';
 
@@ -12,5 +13,5 @@ export default async function getBlob(blob: MFKBlob) {
   const URI = getBlobUri(file);
   const response = await fetch(`${URI}`);
   const text = await response.text();
-  await Deno.writeTextFile(file.split('/')[1], text);
+  await Deno.writeTextFile(join('csv', basename(file)), text);
 }

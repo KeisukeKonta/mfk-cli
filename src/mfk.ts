@@ -1,5 +1,6 @@
-import { parse } from 'https://deno.land/std@0.168.0/flags/mod.ts';
+import { parse } from 'https://deno.land/std/flags/mod.ts';
 import MFKBlob from './interfaces/mfk-blob.ts';
+import convertToJason from './utils/convert-to-json.ts';
 import getBlob from './utils/get-blob.ts';
 import listBlobs from './utils/list-blobs.ts';
 
@@ -31,6 +32,16 @@ switch (cmd) {
       hour: opt.h,
     };
     await getBlob(blob);
+    break;
+  }
+  case 'c2j': {
+    const file = parse(Deno.args)._[1];
+    if (!file) {
+      throw `No file specified: c2j ${file}`;
+    } else if (typeof file !== 'string') {
+      throw `Invalid option: c2j ${file}\nIt has to be a string.`;
+    }
+    await convertToJason(file);
     break;
   }
   // Invalid command

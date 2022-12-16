@@ -1,4 +1,4 @@
-import { config } from 'https://deno.land/x/dotenv@v3.2.0/mod.ts';
+import { config } from 'https://deno.land/x/dotenv/mod.ts';
 import { parse } from 'https://deno.land/x/xml/mod.ts';
 
 const { ACCOUNT, CONTAINER, TOKEN } = config();
